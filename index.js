@@ -22,6 +22,9 @@ window.addEventListener("online", processPendingRequests);
 window.addEventListener("online", hideOfflineNotification);
 window.addEventListener("offline", showOfflineNotification);
 
+navigator.serviceWorker.register("/service-worker.js")
+  .catch(error => console.warn(`Service worker failed to register with: ${error}`));
+
 function sendRequestThroughWire({ values }) {
   const isOnline = navigator.onLine;
 
