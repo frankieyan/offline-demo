@@ -22,3 +22,17 @@ self.addEventListener("install", event => {
       })
   );
 });
+
+self.addEventListener("fetch", event => {
+  const matchedRequest = caches.match(event.request)
+    .then(response => {
+      const { url } = event.request
+      response
+        ? console.log(`Cache hit for: ${url}`)
+        : console.log(`Cache missed for: ${url}`);
+
+      return response || fetch(event.request);
+    });
+
+    event.respondWith(matchedRequest);
+});
