@@ -19,6 +19,8 @@ document.querySelector("#form").addEventListener("submit", event => {
 });
 
 window.addEventListener("online", processPendingRequests);
+window.addEventListener("online", hideOfflineNotification);
+window.addEventListener("offline", showOfflineNotification);
 
 function sendRequestThroughWire({ values }) {
   const isOnline = navigator.onLine;
@@ -38,4 +40,12 @@ function processPendingRequests() {
   while (pendingRequests.length) {
     pendingRequests.shift()();
   }
+}
+
+function showOfflineNotification() {
+  document.querySelector("#offline-notification").setAttribute("style", "visibility: visible");
+}
+
+function hideOfflineNotification() {
+  document.querySelector("#offline-notification").setAttribute("style", "");
 }
