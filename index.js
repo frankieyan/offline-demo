@@ -18,6 +18,8 @@ document.querySelector("#form").addEventListener("submit", event => {
     });
 });
 
+window.addEventListener("online", processPendingRequests);
+
 function sendRequestThroughWire({ values }) {
   const isOnline = navigator.onLine;
 
@@ -30,4 +32,10 @@ function sendRequestThroughWire({ values }) {
 
     resolve();
   });
+}
+
+function processPendingRequests() {
+  while (pendingRequests.length) {
+    pendingRequests.shift()();
+  }
 }
