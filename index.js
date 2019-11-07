@@ -1,11 +1,23 @@
 document.querySelector("#form").addEventListener("submit", event => {
-  event.preventDefault();
   const values = Array.from(event.target.elements)
     .filter(element => element.id)
     .map(({ id, value }) => `${id}: ${value}`)
     .join("\n");
 
-  window.alert(`Sending the following request through the wires: \n${values}`);
-
+  event.preventDefault();
   event.target.reset();
+
+  sendRequestThroughWire({ values })
+    .then(() => {
+      window.alert(`Sent the following request through the wires: \n${values}`);
+    })
+    .catch(() => {
+      // Noop
+    });
 });
+
+function sendRequestThroughWire({ values }) {
+  return new Promise((resolve, reject) => {
+    resolve();
+  });
+}
